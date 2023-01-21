@@ -17,10 +17,9 @@ public class PixDictEntrada {
     private String sobrenomeCorrentista;
 
 
-
     public PixDict converterParaEntidade(){
         Conta conta = Conta.builder()
-                .tipoConta(TipoConta.valueOf(tipoConta.toUpperCase()))
+                .tipoConta(TipoConta.valueOf(tipoConta.toUpperCase().replaceAll("[^\\p{ASCII}]", "")))
                 .agencia(numeroAgencia)
                 .numero(numeroConta)
                 .build();
@@ -31,7 +30,7 @@ public class PixDictEntrada {
                 .build();
 
         PixDict pixDict = PixDict.builder()
-                .tipoChave(TipoChave.valueOf(tipoChave.toUpperCase()))
+                .tipoChave(TipoChave.valueOf(tipoChave.toUpperCase().replaceAll("[^\\p{ASCII}]", "")))
                 .valorChave(valorChave)
                 .conta(conta)
                 .cliente(cliente)
@@ -41,13 +40,3 @@ public class PixDictEntrada {
     }
 
 }
-
-
-
-//    TIPO CHAVE (celular|email|cpf|cnpj|aleatorio) Texto (9) SIM
-//        VALOR CHAVE Texto (77) SIM
-//        TIPO CONTA (corrente|poupança) Texto (10) SIM
-//        NUMERO AGENCIA Numérico (4) SIM
-//        NUMERO CONTA Numérico (8) SIM
-//        NOME CORRENTISTA Texto (30) SIM
-//        SOBRENOME CORRENTISTA
