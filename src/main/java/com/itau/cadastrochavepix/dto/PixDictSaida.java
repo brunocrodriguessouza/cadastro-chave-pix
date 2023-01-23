@@ -25,8 +25,8 @@ public class PixDictSaida {
     private LocalDateTime datahoraInclusao;
 
     public PixDictSaida(PixDict pixDict){
-        Cliente cliente = pixDict.getCliente();
         Conta conta = pixDict.getConta();
+        Cliente cliente = conta.getCliente();
 
         this.id = pixDict.getId();
         this.tipoChave =pixDict.getTipoChave().name().toLowerCase();

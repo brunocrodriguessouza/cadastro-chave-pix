@@ -26,15 +26,11 @@ public class PixDict {
     @Column(nullable = false)
     private TipoChave tipoChave;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String valorChave;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Conta conta;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Cliente cliente;
-
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate

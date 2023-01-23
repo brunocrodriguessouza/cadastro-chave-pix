@@ -2,6 +2,7 @@ package com.itau.cadastrochavepix.controller;
 
 import com.itau.cadastrochavepix.dto.PixDictEntrada;
 import com.itau.cadastrochavepix.dto.PixDictSaida;
+import com.itau.cadastrochavepix.exception.ValidacaoException;
 import com.itau.cadastrochavepix.model.PixDict;
 import com.itau.cadastrochavepix.service.PixDictService;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,16 @@ public class PixDictController {
     }
 
     @PostMapping
-    public ResponseEntity<PixDictSaida> cadastrarChave(@RequestBody PixDictEntrada pixDictEntrada){
-        PixDict pixDict = pixDictService.cadastrarChave(pixDictEntrada.converterParaEntidade());
-        PixDictSaida pixDictSaida = new PixDictSaida(pixDict);
-        return ResponseEntity.status(HttpStatus.CREATED).body(pixDictSaida);
+    public ResponseEntity<PixDictSaida> cadastrarChave(@RequestBody PixDictEntrada pixDictEntrada) {
+        try {
+            PixDict pixDict = pixDictService.cadastrarChave(pixDictEntrada.converterParaEntidade());
+            PixDictSaida pixDictSaida = new PixDictSaida(pixDict);
+            return ResponseEntity.status(HttpStatus.CREATED).body(pixDictSaida);
+        } catch (ValidacaoException e) {
+            return ResponseEntity.status(400).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
+
     }
 }

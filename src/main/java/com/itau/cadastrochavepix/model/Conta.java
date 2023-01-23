@@ -28,4 +28,7 @@ public class Conta {
     @Column(nullable = false)
     private TipoConta tipoConta;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Cliente cliente;
+
 }
