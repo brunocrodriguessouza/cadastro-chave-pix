@@ -1,5 +1,6 @@
 package com.itau.cadastrochavepix.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cadastrochavepix.exception.ValidacaoException;
 import com.itau.cadastrochavepix.model.*;
 import lombok.Builder;
@@ -9,12 +10,25 @@ import lombok.Data;
 @Builder
 public class PixDictEntrada {
 
+    @JsonProperty(value = "tipo_chave")
     private String tipoChave;
+
+    @JsonProperty(value = "valor_chave")
     private String valorChave;
+
+    @JsonProperty(value = "tipo_conta")
     private String tipoConta;
+
+    @JsonProperty(value = "numero_agencia")
     private Integer numeroAgencia;
+
+    @JsonProperty(value = "numero_conta")
     private Integer numeroConta;
+
+    @JsonProperty(value = "nome_correntista")
     private String nomeCorrentista;
+
+    @JsonProperty(value = "sobrenome_correntista")
     private String sobrenomeCorrentista;
 
 

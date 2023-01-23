@@ -4,6 +4,8 @@ import com.itau.cadastrochavepix.exception.ValidacaoException;
 import lombok.SneakyThrows;
 
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public enum TipoChave implements Predicate<String>{
 
@@ -16,8 +18,8 @@ public enum TipoChave implements Predicate<String>{
         @SneakyThrows
         @Override
         public boolean test(String entrada){
-            if(!entrada.contains("@")){
-                throw new ValidacaoException("Errrou");
+            if(!valida(entrada, REGEX_EMAIL)){
+                throw new ValidacaoException("E-mail inválido");
             }
             return true;
         }
@@ -38,5 +40,14 @@ public enum TipoChave implements Predicate<String>{
         }
     };
 
+    public static final String REGEX_EMAIL = "(.+)@(.+)$";
+
+    boolean valida(String entrada, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(entrada);
+        return matcher.matches();
+    }
+
 
 }
+
