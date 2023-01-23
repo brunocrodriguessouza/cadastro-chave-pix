@@ -94,7 +94,7 @@ class PixDictControllerTest {
 
         resultActions
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

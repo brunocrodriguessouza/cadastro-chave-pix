@@ -28,10 +28,8 @@ public class PixDictController {
             PixDict pixDict = pixDictService.cadastrarChave(pixDictEntrada.converterParaEntidade());
             PixDictSaida pixDictSaida = new PixDictSaida(pixDict);
             return ResponseEntity.status(HttpStatus.CREATED).body(pixDictSaida);
-        } catch (ValidacaoException e) {
-            return ResponseEntity.status(400).build();
         } catch (Exception e) {
-            return ResponseEntity.status(400).build();
+            return ResponseEntity.status(422).build();
         }
 
     }
