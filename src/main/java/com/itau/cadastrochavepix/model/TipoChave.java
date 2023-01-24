@@ -33,7 +33,7 @@ public enum TipoChave implements Predicate<String>{
         public boolean test(String entrada) {
             return true;
         }
-    }, ALEATORIO{
+    }, ALEATORIA{
         @Override
         public boolean test(String entrada) {
             return true;

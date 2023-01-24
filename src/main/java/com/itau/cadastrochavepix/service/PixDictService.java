@@ -1,11 +1,14 @@
 package com.itau.cadastrochavepix.service;
 
+import com.itau.cadastrochavepix.dto.PixDictSaida;
 import com.itau.cadastrochavepix.exception.ValidacaoException;
 import com.itau.cadastrochavepix.model.*;
 import com.itau.cadastrochavepix.repository.PixDictRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PixDictService {
@@ -53,5 +56,11 @@ public class PixDictService {
         return repository.save(pixDict);
     }
 
+    public Optional<PixDict> buscarChavePorId(UUID id) {
+        return repository.findById(id);
+    }
 
+    public List<PixDict> buscarChavePorTipo(TipoChave tipoChave) {
+        return repository.findAllByTipoChave(tipoChave);
+    }
 }

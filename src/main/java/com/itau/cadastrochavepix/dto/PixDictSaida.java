@@ -1,6 +1,7 @@
 package com.itau.cadastrochavepix.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cadastrochavepix.model.Cliente;
 import com.itau.cadastrochavepix.model.Conta;
 import com.itau.cadastrochavepix.model.PixDict;
@@ -13,15 +14,30 @@ import java.util.UUID;
 public class PixDictSaida {
 
     private UUID id;
+
+    @JsonProperty(value = "tipo_chave")
     private String tipoChave;
+
+    @JsonProperty(value = "valor_chave")
     private String valorChave;
+
+    @JsonProperty(value = "tipo_conta")
     private String tipoConta;
+
+    @JsonProperty(value = "numero_agencia")
     private Integer numeroAgencia;
+
+    @JsonProperty(value = "numero_conta")
     private Integer numeroConta;
+
+    @JsonProperty(value = "nome_correntista")
     private String nomeCorrentista;
+
+    @JsonProperty(value = "sobrenome_correntista")
     private String sobrenomeCorrentista;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonProperty(value = "data_hora_inclusao")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime datahoraInclusao;
 
     public PixDictSaida(PixDict pixDict){
@@ -35,8 +51,8 @@ public class PixDictSaida {
         this.numeroAgencia = conta.getAgencia();
         this.numeroConta = conta.getNumero();
         this.nomeCorrentista = cliente.getNomeCorrentista();
-        this.sobrenomeCorrentista =cliente.getSobrenomeCorrentista();
-        this.datahoraInclusao = pixDict.getDataHoraInclusao();
+        this.sobrenomeCorrentista = (cliente.getSobrenomeCorrentista() != null ? cliente.getSobrenomeCorrentista() : "");
+        this.datahoraInclusao = LocalDateTime.now();
     }
 
 }

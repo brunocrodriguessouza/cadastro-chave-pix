@@ -66,13 +66,13 @@ class PixDictControllerTest {
         resultActions
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.tipoChave").value("email"))
-                .andExpect(jsonPath("$.valorChave").value("bruno1@itau.com.br"))
-                .andExpect(jsonPath("$.tipoConta").value("corrente"))
-                .andExpect(jsonPath("$.numeroAgencia").value(5846))
-                .andExpect(jsonPath("$.numeroConta").value(1001))
-                .andExpect(jsonPath("$.nomeCorrentista").value("Bruno"))
-                .andExpect(jsonPath("$.sobrenomeCorrentista").value("Souza"));
+                .andExpect(jsonPath("$.tipo_chave").value("email"))
+                .andExpect(jsonPath("$.valor_chave").value("bruno1@itau.com.br"))
+                .andExpect(jsonPath("$.tipo_conta").value("corrente"))
+                .andExpect(jsonPath("$.numero_agencia").value(5846))
+                .andExpect(jsonPath("$.numero_conta").value(1001))
+                .andExpect(jsonPath("$.nome_correntista").value("Bruno"))
+                .andExpect(jsonPath("$.sobrenome_correntista").value("Souza"));
     }
 
     @Test
@@ -140,7 +140,7 @@ class PixDictControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
 
-        dto.setTipoChave("aleatorio");
+        dto.setTipoChave("aleatoria");
 
         for(int i=0; i<4; i++ ){
             dto.setValorChave("chavealetoria"+i);
@@ -159,7 +159,7 @@ class PixDictControllerTest {
 
     private ResultActions performPost(PixDictEntrada dto) throws Exception {
         return mockMvc.perform(
-                post("/itau/pix")
+                post("/itau")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
                         .accept(MediaType.APPLICATION_JSON)
