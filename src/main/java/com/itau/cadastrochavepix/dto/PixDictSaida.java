@@ -8,7 +8,9 @@ import com.itau.cadastrochavepix.model.PixDict;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 public class PixDictSaida {
@@ -53,6 +55,12 @@ public class PixDictSaida {
         this.nomeCorrentista = cliente.getNomeCorrentista();
         this.sobrenomeCorrentista = (cliente.getSobrenomeCorrentista() != null ? cliente.getSobrenomeCorrentista() : "");
         this.datahoraInclusao = LocalDateTime.now();
+    }
+
+    public static List<PixDictSaida> converterParaPixDictSaida(List<PixDict> pixDics) {
+        return pixDics.stream()
+                .map(p -> new PixDictSaida(p))
+                .collect(Collectors.toList());
     }
 
 }

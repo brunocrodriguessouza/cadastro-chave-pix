@@ -3,9 +3,12 @@ package com.itau.cadastrochavepix.model;
 import com.itau.cadastrochavepix.exception.ValidacaoException;
 import lombok.SneakyThrows;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public enum TipoChave implements Predicate<String>{
 
@@ -47,7 +50,6 @@ public enum TipoChave implements Predicate<String>{
         Matcher matcher = pattern.matcher(entrada);
         return matcher.matches();
     }
-
 
 }
 

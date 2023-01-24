@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itau.cadastrochavepix.CadastroChavePixApplication;
 import com.itau.cadastrochavepix.dto.PixDictEntrada;
+import com.itau.cadastrochavepix.model.TipoChave;
 import com.itau.cadastrochavepix.repository.ContaRepository;
 import com.itau.cadastrochavepix.repository.PixDictRepository;
 import com.itau.cadastrochavepix.service.ContaService;
@@ -18,9 +19,13 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -157,11 +162,46 @@ class PixDictControllerTest {
                 .andExpect(status().is4xxClientError());
     }
 
+    @Test
+    @DisplayName("Teste de busca de chave por E-mail")
+    public void deveriabuscarChavePorEmail() throws Exception {
+
+        PixDictEntrada dto = PixDictEntrada.builder()
+                .nomeCorrentista("Bruno")
+                .sobrenomeCorrentista("Souza")
+                .numeroAgencia(5846)
+                .numeroConta(1001)
+                .tipoChave("email")
+                .valorChave("bruno1@itau.com.br")
+                .tipoConta("corrente")
+                .build();
+
+        performPost(dto);
+
+        ResultActions resultActions = mockMvc.perform(
+                get("/itau/consulta/tipo-de-chave/{tipoChave}", TipoChave.EMAIL)
+                        .content(String.valueOf(status().isOk()))
+        );
+
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
     private ResultActions performPost(PixDictEntrada dto) throws Exception {
         return mockMvc.perform(
                 post("/itau")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+    }
+
+    private ResultActions performGet(UUID id) throws Exception {
+        return mockMvc.perform(
+                get("/itau/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.valueOf(status().isOk()))
                         .accept(MediaType.APPLICATION_JSON)
         );
     }

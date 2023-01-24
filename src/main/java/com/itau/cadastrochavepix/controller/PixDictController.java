@@ -55,10 +55,10 @@ public class PixDictController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Arrays.asList());
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    pixDics.stream()
-                            .map(p -> new PixDictSaida(p))
-                            .collect(Collectors.toList())
-            );
+                    PixDictSaida.converterParaPixDictSaida(pixDics));
         }
     }
+
+
 }
+
